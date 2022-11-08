@@ -2,6 +2,8 @@
 
 This repository provides a Flatpak manifest for the [Tracy Profiler](https://github.com/wolfpld/tracy).
 
+The source is the latest commit from the `master` branch. The latest build (`x86_64` only) is available on the [Releases](https://github.com/paveloom-a/Tracy/releases) page as a [single-file bundle](https://docs.flatpak.org/en/latest/single-file-bundles.html).
+
 #### Git mirrors
 - [Codeberg](https://codeberg.org/paveloom-a/Tracy)
 - [GitHub](https://github.com/paveloom-a/Tracy)

@@ -1,0 +1,46 @@
+app-id: apps.tracy.profiler
+runtime: org.freedesktop.Platform
+runtime-version: '22.08'
+sdk: org.freedesktop.Sdk
+command: tracy
+finish-args:
+  - --share=ipc
+  - --socket=x11
+  - --socket=wayland
+  - --share=network
+modules:
+  - name: ecm
+    buildsystem: cmake-ninja
+    sources:
+      - type: archive
+        url: https://github.com/KDE/extra-cmake-modules/archive/refs/tags/v5.99.0.tar.gz
+        sha256: 4a8ee4e76b45a29a1c82c3074f5b626276cc6fab8a8d7b25804baf06ce2f6067
+  - name: glfw3
+    buildsystem: cmake-ninja
+    config-opts:
+      - -DBUILD_SHARED_LIBS=ON
+      - -DCMAKE_BUILD_TYPE=Release
+      - -DGLFW_USE_WAYLAND=1
+      - -Wno-dev
+    sources:
+      - type: archive
+        url: https://github.com/glfw/glfw/archive/refs/tags/3.3.8.tar.gz
+        sha256: f30f42e05f11e5fc62483e513b0488d5bceeab7d9c5da0ffe2252ad81816c713
+  - name: capstone
+    buildsystem: simple
+    build-commands:
+      - PREFIX=/app ./make.sh install
+    sources:
+      - type: archive
+        url: https://github.com/capstone-engine/capstone/archive/refs/tags/5.0-rc2.tar.gz
+        sha256: 869d94813a887329bc11b4bf1f4410a7a2b7f270176439e90b158127d5a215dd
+  - name: tracy
+    buildsystem: simple
+    build-commands:
+      - |
+        cd profiler/build/unix
+        make -j $(nproc)
+        install -D Tracy-release /app/bin/tracy
+    sources:
+      - type: git
+        url: https://github.com/wolfpld/tracy.git

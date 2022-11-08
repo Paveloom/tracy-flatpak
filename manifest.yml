@@ -1,8 +1,10 @@
-app-id: apps.tracy.profiler
+app-id: tracy.profiler.Tracy
 runtime: org.freedesktop.Platform
 runtime-version: '22.08'
 sdk: org.freedesktop.Sdk
 command: tracy
+rename-desktop-file: tracy.desktop
+rename-icon: tracy
 finish-args:
   - --share=ipc
   - --socket=x11
@@ -38,6 +40,9 @@ modules:
     buildsystem: simple
     build-commands:
       - |
+        sed -i 's|/usr/bin/tracy|tracy|' extra/desktop/tracy.desktop
+        install -D extra/desktop/tracy.desktop /app/share/applications/tracy.desktop
+        install -D icon/icon.svg /app/share/icons/hicolor/scalable/apps/tracy.svg
         cd profiler/build/unix
         make -j $(nproc)
         install -D Tracy-release /app/bin/tracy

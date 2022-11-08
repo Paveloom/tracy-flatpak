@@ -9,9 +9,9 @@ This repository provides a Flatpak manifest for the [Tracy Profiler](https://git
 
 #### Build
 
-Make sure you have installed:
-- [`flatpak-builder`](https://github.com/flatpak/flatpak-builder)
-- `org.freedesktop.Platform//22.08` and `org.freedesktop.Sdk//22.08`
+Make sure you have installed
+- [`flatpak-builder`](https://github.com/flatpak/flatpak-builder);
+- `org.freedesktop.Platform//22.08` and `org.freedesktop.Sdk//22.08`.
 
 Then, run
 
@@ -19,10 +19,10 @@ Then, run
 flatpak-builder --user --install --force-clean build manifest.yml
 ```
 
-If that's successful, you will now be able to run the Flatpak as usual:
+If the build is successful, you will now be able to run the Flatpak as usual:
 
 ```
-flatpak run apps.tracy.profiler
+flatpak run tracy.profiler.Tracy
 ```
 
 You might also want to delete the `build` and `.flatpak-builder` directories after you're done.

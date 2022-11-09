@@ -6,6 +6,12 @@ on:
     - cron: '0,30 * * * *'
 
 jobs:
+  test:
+    name: Instruction set
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check
+      run: cat /proc/cpuinfo
   build:
     name: Build & Release
     runs-on: ubuntu-latest
@@ -17,6 +23,8 @@ jobs:
       uses: actions/checkout@v2
     - name: Install dependencies
       run: dnf -y install jq
+    - name: Check the instuctions set
+      run: cat /proc/cpuinfo
     - name: Bundle the application
       uses: flatpak/flatpak-github-actions/flatpak-builder@v4
       with:

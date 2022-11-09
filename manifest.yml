@@ -31,7 +31,7 @@ modules:
   - name: capstone
     buildsystem: simple
     build-commands:
-      - PREFIX=/app ./make.sh install
+      - PREFIX=/app MAKE_JOBS="$(nproc)" ./make.sh install
     sources:
       - type: archive
         url: https://github.com/capstone-engine/capstone/archive/refs/tags/5.0-rc2.tar.gz

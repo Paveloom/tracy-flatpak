@@ -2,7 +2,7 @@
 
 This repository provides a Flatpak manifest for the [Tracy Profiler](https://github.com/wolfpld/tracy).
 
-The source is the latest commit from the `master` branch. The latest build (`x86_64` only) is available on the [Releases](https://github.com/paveloom-a/Tracy/releases) page as a [single-file bundle](https://docs.flatpak.org/en/latest/single-file-bundles.html).
+The source is the latest commit from the `master` branch.
 
 #### Git mirrors
 - [Codeberg](https://codeberg.org/paveloom-a/Tracy)
@@ -11,11 +11,16 @@ The source is the latest commit from the `master` branch. The latest build (`x86
 
 #### Build
 
-Make sure you have installed
-- [`flatpak-builder`](https://github.com/flatpak/flatpak-builder);
-- `org.freedesktop.Platform//22.08` and `org.freedesktop.Sdk//22.08`.
+Make sure you have installed [`flatpak-builder`](https://github.com/flatpak/flatpak-builder) and [set up](https://flatpak.org/setup) Flatpak with the Flathub remote.
 
-Then, run
+Run
+
+```
+flatpak-builder --install-deps-only --install-deps-from=flathub build manifest.yml
+```
+
+to check if the dependencies are installed. Then, build with
+
 
 ```
 flatpak-builder --user --install --force-clean build manifest.yml

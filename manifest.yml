@@ -19,6 +19,17 @@ modules:
       - type: archive
         url: https://github.com/KDE/extra-cmake-modules/archive/refs/tags/v5.101.0.tar.gz
         sha256: 7f511d998777ce323f9a29c2ef4e2f302c84a697f744497658c0d20c1a305c18
+  - name: glfw3
+    buildsystem: cmake-ninja
+    config-opts:
+      - -DBUILD_SHARED_LIBS=ON
+      - -DCMAKE_BUILD_TYPE=Release
+      - -DGLFW_USE_WAYLAND=1
+      - -Wno-dev
+    sources:
+      - type: archive
+        url: https://github.com/glfw/glfw/archive/refs/tags/3.3.8.tar.gz
+        sha256: f30f42e05f11e5fc62483e513b0488d5bceeab7d9c5da0ffe2252ad81816c713
   - name: capstone
     buildsystem: simple
     build-commands:
@@ -35,7 +46,7 @@ modules:
         install -D extra/desktop/tracy.desktop /app/share/applications/tracy.desktop
         install -D icon/icon.svg /app/share/icons/hicolor/scalable/apps/tracy.svg
         cd profiler/build/unix
-        make -j $(nproc)
+        LEGACY=1 make -j $(nproc)
         install -D Tracy-release /app/bin/tracy
     sources:
       - type: git

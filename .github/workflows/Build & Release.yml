@@ -1,0 +1,37 @@
+name: Build & Release
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    name: Build & Release
+    runs-on: ubuntu-latest
+    container:
+      image: bilelmoussaoui/flatpak-github-actions:freedesktop-22.08
+      options: --privileged
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v2
+      - name: Install the dependencies
+        run: dnf -y install jq
+      - name: Bundle the application
+        uses: flatpak/flatpak-github-actions/flatpak-builder@v6
+        with:
+          bundle: Tracy.flatpak
+          manifest-path: manifest.yml
+          verbose: true
+      - name: Delete the previous release (if exists)
+        run: .github/scripts/delete_release.bash
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+          GH_REPO: https://api.github.com/repos/paveloom-a/Tracy
+          TAG: latest
+      - name: Create a release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: Latest
+          body: The latest build of the [Tracy Profiler](https://github.com/wolfpld/tracy) as a [single-file bundle](https://docs.flatpak.org/en/latest/single-file-bundles.html).
+          tag_name: latest
+          files: |
+            Tracy.flatpak
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
